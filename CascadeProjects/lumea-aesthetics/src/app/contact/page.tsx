@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 import { useState } from 'react'
+import { CONTACT_INFO, HOURS } from '@/constants/site'
+import { SERVICES } from '@/data/services'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -16,7 +18,6 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
     console.log('Form submitted:', formData)
     alert('Thank you for your message! We will get back to you soon.')
     setFormData({ name: '', email: '', phone: '', service: '', message: '' })
@@ -28,26 +29,39 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col">
-      <section className="py-20 bg-muted/50">
-        <div className="container px-4 md:px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
-            <p className="text-xl text-muted-foreground">
+      <section className="relative py-32 bg-white overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-rose-100 to-pink-100 rounded-full blur-3xl opacity-50"></div>
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-purple-100 to-rose-100 rounded-full blur-3xl opacity-50"></div>
+        </div>
+
+        <div className="container px-4 md:px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-50 border border-rose-200 mb-8">
+              <span className="text-sm font-medium text-rose-700">Get In Touch</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900 leading-tight">
+              Contact Us
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
               Schedule your consultation or get in touch with any questions
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-32 bg-gradient-to-b from-white to-gray-50">
         <div className="container px-4 md:px-6">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-16">
             <div className="space-y-8">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">
+                  Send Us a Message
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    <label htmlFor="name" className="block text-sm font-semibold mb-3 text-gray-700">
                       Full Name *
                     </label>
                     <input
@@ -57,12 +71,12 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-6 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all bg-white"
                       placeholder="Your name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    <label htmlFor="email" className="block text-sm font-semibold mb-3 text-gray-700">
                       Email Address *
                     </label>
                     <input
@@ -72,12 +86,12 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-6 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all bg-white"
                       placeholder="your@email.com"
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                    <label htmlFor="phone" className="block text-sm font-semibold mb-3 text-gray-700">
                       Phone Number
                     </label>
                     <input
@@ -86,12 +100,12 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-6 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all bg-white"
                       placeholder="+1 (xxx) xxx-xxxx"
                     />
                   </div>
                   <div>
-                    <label htmlFor="service" className="block text-sm font-medium mb-2">
+                    <label htmlFor="service" className="block text-sm font-semibold mb-3 text-gray-700">
                       Service of Interest
                     </label>
                     <select
@@ -99,20 +113,19 @@ export default function ContactPage() {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-6 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all bg-white"
                     >
                       <option value="">Select a service</option>
-                      <option value="botox">Botox</option>
-                      <option value="fillers">Dermal Fillers</option>
-                      <option value="facials">Facial Treatments</option>
-                      <option value="wellness">Sexual Wellness</option>
-                      <option value="laser">Laser Hair Removal</option>
-                      <option value="contouring">Body Contouring</option>
+                      {SERVICES.map((service) => (
+                        <option key={service.id} value={service.id}>
+                          {service.title}
+                        </option>
+                      ))}
                       <option value="other">Other</option>
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    <label htmlFor="message" className="block text-sm font-semibold mb-3 text-gray-700">
                       Message *
                     </label>
                     <textarea
@@ -122,11 +135,11 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-6 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all resize-none bg-white"
                       placeholder="Tell us about your goals or ask any questions..."
                     />
                   </div>
-                  <Button type="submit" size="lg" className="w-full">
+                  <Button type="submit" size="lg" className="w-full rounded-full text-base px-10 py-6 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 shadow-xl shadow-rose-200">
                     Send Message
                   </Button>
                 </form>
@@ -134,86 +147,99 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">
+                Contact Information
+              </h2>
               
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Phone className="h-5 w-5 text-primary" />
+              <Card className="group relative overflow-hidden border-2 border-gray-100 hover:border-rose-200 transition-all duration-500 hover:shadow-2xl hover:shadow-rose-100/50">
+                <div className="absolute inset-0 bg-gradient-to-br from-rose-50/0 via-rose-50/0 to-rose-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardHeader className="relative z-10">
+                  <CardTitle className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Phone className="h-6 w-6 text-rose-600" />
+                    </div>
                     Phone
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <a href="tel:+16722728223" className="text-muted-foreground hover:text-primary">
-                    +1 (672) 272-8223
+                <CardContent className="relative z-10">
+                  <a href={`tel:${CONTACT_INFO.phone.replace(/\s/g, '')}`} className="text-lg text-gray-700 hover:text-rose-600 transition-colors font-medium">
+                    {CONTACT_INFO.phone}
                   </a>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="h-5 w-5 text-primary" />
+              <Card className="group relative overflow-hidden border-2 border-gray-100 hover:border-rose-200 transition-all duration-500 hover:shadow-2xl hover:shadow-rose-100/50">
+                <div className="absolute inset-0 bg-gradient-to-br from-rose-50/0 via-rose-50/0 to-rose-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardHeader className="relative z-10">
+                  <CardTitle className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Mail className="h-6 w-6 text-rose-600" />
+                    </div>
                     Email
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <a href="mailto:info@lumeaxaesthetics.ca" className="text-muted-foreground hover:text-primary">
-                    info@lumeaxaesthetics.ca
+                <CardContent className="relative z-10">
+                  <a href={`mailto:${CONTACT_INFO.email}`} className="text-lg text-gray-700 hover:text-rose-600 transition-colors font-medium">
+                    {CONTACT_INFO.email}
                   </a>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5 text-primary" />
+              <Card className="group relative overflow-hidden border-2 border-gray-100 hover:border-rose-200 transition-all duration-500 hover:shadow-2xl hover:shadow-rose-100/50">
+                <div className="absolute inset-0 bg-gradient-to-br from-rose-50/0 via-rose-50/0 to-rose-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardHeader className="relative z-10">
+                  <CardTitle className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <MapPin className="h-6 w-6 text-rose-600" />
+                    </div>
                     Location
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    North York, Toronto<br />
-                    Ontario, Canada
+                <CardContent className="relative z-10">
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    {CONTACT_INFO.location}
                   </p>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-primary" />
+              <Card className="group relative overflow-hidden border-2 border-gray-100 hover:border-rose-200 transition-all duration-500 hover:shadow-2xl hover:shadow-rose-100/50">
+                <div className="absolute inset-0 bg-gradient-to-br from-rose-50/0 via-rose-50/0 to-rose-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardHeader className="relative z-10">
+                  <CardTitle className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Clock className="h-6 w-6 text-rose-600" />
+                    </div>
                     Hours
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-muted-foreground">
-                    <div className="flex justify-between">
-                      <span>Monday - Friday</span>
-                      <span>9:00 AM - 6:00 PM</span>
+                <CardContent className="relative z-10">
+                  <div className="space-y-4 text-gray-700">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium">Monday - Friday</span>
+                      <span className="text-rose-600 font-semibold">{HOURS.weekdays}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Saturday</span>
-                      <span>10:00 AM - 4:00 PM</span>
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium">Saturday</span>
+                      <span className="text-rose-600 font-semibold">{HOURS.saturday}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Sunday</span>
-                      <span>Closed</span>
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium">Sunday</span>
+                      <span className="text-rose-600 font-semibold">{HOURS.sunday}</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-primary text-primary-foreground">
+              <Card className="bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 text-white border-0 shadow-2xl">
                 <CardHeader>
-                  <CardTitle>Book via WhatsApp</CardTitle>
+                  <CardTitle className="text-white text-2xl">Book via WhatsApp</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="mb-4 opacity-90">
+                  <p className="mb-6 text-white/90 leading-relaxed text-lg">
                     Quick and easy booking through WhatsApp
                   </p>
-                  <Button asChild variant="secondary" className="w-full">
-                    <a href="https://api.whatsapp.com/send?phone=16722728223" target="_blank" rel="noopener noreferrer">
+                  <Button asChild variant="secondary" className="w-full rounded-full px-10 py-6 text-base shadow-xl">
+                    <a href={`https://api.whatsapp.com/send?phone=${CONTACT_INFO.whatsapp}`} target="_blank" rel="noopener noreferrer">
                       Chat on WhatsApp
                     </a>
                   </Button>

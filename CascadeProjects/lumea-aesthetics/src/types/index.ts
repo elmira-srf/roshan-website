@@ -4,6 +4,9 @@ export interface Service {
   description: string
   icon: string
   category: 'face' | 'body' | 'wellness'
+  details: string
+  duration: string
+  recovery: string
   price?: string
 }
 
